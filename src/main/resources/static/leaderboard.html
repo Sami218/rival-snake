@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - Rival Snake</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="leaderboard.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="header">
+            <span id="title">TOP 10</span>
+            <a href="index.html" class="nav-back">PLAY</a>
+        </div>
+        <div id="leaderboard">
+            <table id="score-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>NAME</th>
+                        <th>SCORE</th>
+                    </tr>
+                </thead>
+                <tbody id="score-body">
+                </tbody>
+            </table>
+            <p id="empty-msg" style="display: none;">No scores yet. Be the first!</p>
+        </div>
+    </div>
+
+    <div id="nav-links">
+        <a href="index.html">Back to Game</a>
+    </div>
+
+    <script src="leaderboard.js"></script>
+</body>
+</html>

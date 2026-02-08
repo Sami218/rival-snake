@@ -1,0 +1,9 @@
+target/
+leaderboard.json
+dependency-reduced-pom.xml
+*.class
+.idea/
+*.iml
+.vscode/
+nul
+.claude/

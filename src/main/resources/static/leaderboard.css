@@ -1,0 +1,65 @@
+#leaderboard {
+    background: #ffffff;
+    border: 2px solid #cbd5e1;
+    border-radius: 4px;
+    padding: 12px;
+    min-height: 300px;
+}
+
+#score-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Courier New", Courier, monospace;
+    color: #1e293b;
+}
+
+#score-table th {
+    font-size: 13px;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #334155;
+    padding: 6px 4px;
+    text-align: left;
+    color: #475569;
+}
+
+#score-table th:last-child {
+    text-align: right;
+}
+
+#score-table td {
+    font-size: 14px;
+    padding: 5px 4px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+#score-table td:first-child {
+    width: 30px;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+#score-table td:last-child {
+    text-align: right;
+    font-weight: bold;
+}
+
+#empty-msg {
+    text-align: center;
+    color: #475569;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    margin-top: 40px;
+    letter-spacing: 1px;
+}
+
+.nav-back {
+    font-size: 14px;
+    font-weight: bold;
+    color: #2563eb;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.nav-back:hover {
+    color: #1d4ed8;
+}

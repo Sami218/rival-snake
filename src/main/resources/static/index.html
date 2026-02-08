@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rival Snake</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="header">
+            <span id="title">RIVAL SNAKE</span>
+            <span id="score">Score: 0</span>
+        </div>
+        <canvas id="game-canvas"></canvas>
+        <div id="legend">
+            <div class="legend-item">
+                <span class="legend-color player"></span> You
+            </div>
+            <div class="legend-item">
+                <span class="legend-color ai"></span> Computer
+            </div>
+            <div class="legend-item">
+                <span class="legend-color food"></span> Food
+            </div>
+        </div>
+        <div id="message">Press SPACE to start</div>
+
+        <div id="name-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content">
+                <p class="modal-title">GAME OVER</p>
+                <p id="modal-score">Score: 0</p>
+                <label for="player-name">Enter your name:</label>
+                <input type="text" id="player-name" maxlength="20"
+                       placeholder="Player" autocomplete="off">
+                <div class="modal-buttons">
+                    <button id="submit-score-btn">SUBMIT</button>
+                    <button id="skip-score-btn">SKIP</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="nav-links">
+        <a href="leaderboard.html">View Leaderboard</a>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
