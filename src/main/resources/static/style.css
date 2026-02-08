@@ -22,6 +22,9 @@ body {
     padding: 16px;
     box-shadow:
         0 4px 24px rgba(0, 0, 0, 0.3);
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
 }
 
 #header {
@@ -50,6 +53,8 @@ body {
     background: #ffffff;
     border: 2px solid #cbd5e1;
     image-rendering: pixelated;
+    touch-action: none;
+    cursor: crosshair;
 }
 
 /* --- Legend --- */
@@ -107,6 +112,22 @@ body {
     color: #334155;
     letter-spacing: 1px;
     min-height: 20px;
+}
+
+#start-link {
+    color: #2563eb;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 2px 4px;
+}
+
+#start-link:hover {
+    color: #1d4ed8;
+}
+
+#start-link:active {
+    color: #1e40af;
 }
 
 /* --- Name Input Modal --- */

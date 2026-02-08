@@ -225,10 +225,23 @@
         messageEl.textContent = "";
     }
 
+    function setMessageWithLink(prefix, linkText) {
+        messageEl.innerHTML = prefix + ' <a href="#" id="start-link">' + linkText + '</a>';
+        const link = document.getElementById("start-link");
+        if (link) {
+            link.addEventListener("click", function(e) {
+                e.preventDefault();
+                if (state === State.WAITING || state === State.GAME_OVER) {
+                    startGame();
+                }
+            });
+        }
+    }
+
     function hideNameModal() {
         nameModal.style.display = "none";
         state = State.GAME_OVER;
-        messageEl.textContent = "GAME OVER - Press SPACE to restart";
+        setMessageWithLink("GAME OVER - Press SPACE or", "tap here to restart");
     }
 
     async function submitScore(name) {
@@ -394,22 +407,23 @@
 
         if (state !== State.PLAYING) return;
 
+        // Check against nextDirection to prevent 180° reversal on rapid key presses
         switch (e.code) {
             case "ArrowUp":
             case "KeyW":
-                if (direction.y === 0) nextDirection = { x: 0, y: -1 };
+                if (nextDirection.y === 0) nextDirection = { x: 0, y: -1 };
                 break;
             case "ArrowDown":
             case "KeyS":
-                if (direction.y === 0) nextDirection = { x: 0, y: 1 };
+                if (nextDirection.y === 0) nextDirection = { x: 0, y: 1 };
                 break;
             case "ArrowLeft":
             case "KeyA":
-                if (direction.x === 0) nextDirection = { x: -1, y: 0 };
+                if (nextDirection.x === 0) nextDirection = { x: -1, y: 0 };
                 break;
             case "ArrowRight":
             case "KeyD":
-                if (direction.x === 0) nextDirection = { x: 1, y: 0 };
+                if (nextDirection.x === 0) nextDirection = { x: 1, y: 0 };
                 break;
         }
 
@@ -419,7 +433,63 @@
         }
     });
 
+    // --- Touch / Click direction control ---
+    function handleCanvasTap(e) {
+        if (state === State.ENTERING_NAME) return;
+
+        if (state === State.WAITING || state === State.GAME_OVER) {
+            if (e.type === "touchstart") e.preventDefault();
+            startGame();
+            return;
+        }
+
+        if (state !== State.PLAYING) return;
+
+        const rect = canvas.getBoundingClientRect();
+        let clientX, clientY;
+
+        if (e.type === "touchstart") {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+            e.preventDefault();
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const canvasX = (clientX - rect.left) * scaleX;
+        const canvasY = (clientY - rect.top) * scaleY;
+
+        const tapCol = canvasX / CELL;
+        const tapRow = canvasY / CELL;
+
+        const head = snake[0];
+        const dx = tapCol - (head.x + 0.5);
+        const dy = tapRow - (head.y + 0.5);
+
+        let newDir;
+        if (Math.abs(dx) > Math.abs(dy)) {
+            newDir = dx > 0 ? { x: 1, y: 0 } : { x: -1, y: 0 };
+        } else {
+            newDir = dy > 0 ? { x: 0, y: 1 } : { x: 0, y: -1 };
+        }
+
+        // Check against nextDirection (not direction) to prevent 180° reversal
+        // when tapping twice quickly between ticks
+        if (newDir.x !== 0 && nextDirection.x === 0) {
+            nextDirection = newDir;
+        } else if (newDir.y !== 0 && nextDirection.y === 0) {
+            nextDirection = newDir;
+        }
+    }
+
+    canvas.addEventListener("touchstart", handleCanvasTap, { passive: false });
+    canvas.addEventListener("click", handleCanvasTap);
+
     // --- Initial draw ---
     resetGame();
     draw();
+    setMessageWithLink("Press SPACE or", "tap here to start");
 })();
